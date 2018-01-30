@@ -9,6 +9,7 @@
 #include "FileSorts.h"
 #include "Log.h"
 #include "platform.h"
+#include "Scripting.h"
 #include "SystemData.h"
 #include "VolumeControl.h"
 #include "Window.h"
@@ -263,6 +264,8 @@ void FileData::launchGame(Window* window)
 	command = Utils::String::replace(command, "%BASENAME%", basename);
 	command = Utils::String::replace(command, "%ROM_RAW%", rom_raw);
 
+	Scripting::fireEvent("game-start", rom, basename);
+
 	LOG(LogInfo) << "	" << command;
 	int exitCode = runSystemCommand(command);
 
@@ -270,6 +273,8 @@ void FileData::launchGame(Window* window)
 	{
 		LOG(LogWarning) << "...launch terminated with nonzero exit code " << exitCode << "!";
 	}
+
+	Scripting::fireEvent("game-end");
 
 	window->init();
 	VolumeControl::getInstance()->init();
