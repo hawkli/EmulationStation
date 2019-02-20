@@ -54,14 +54,14 @@ void GuiMenu::openScraperSettings()
 	auto s = new GuiSettings(mWindow, "抓取");
 
 	// scrape from
-	auto scraper_list = std::make_shared< OptionListComponent< std::string > >(mWindow, "抓取自", false);
+	auto scraper_list = std::make_shared< OptionListComponent< std::string > >(mWindow, "抓取网站", false);
 	std::vector<std::string> scrapers = getScraperList();
 
 	// Select either the first entry of the one read from the settings, just in case the scraper from settings has vanished.
 	for(auto it = scrapers.cbegin(); it != scrapers.cend(); it++)
 		scraper_list->add(*it, *it, *it == Settings::getInstance()->getString("Scraper"));
 
-	s->addWithLabel("从此网站抓取", scraper_list);
+	s->addWithLabel("抓取网站", scraper_list);
 	s->addSaveFunc([scraper_list] { Settings::getInstance()->setString("Scraper", scraper_list->getSelected()); });
 
 	// scrape ratings
