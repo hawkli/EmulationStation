@@ -32,7 +32,7 @@ GuiMenu::GuiMenu(Window* window) : GuiComponent(window), mMenu(window, "功能�
 		addEntry("界面设置", 0x777777FF, true, [this] { openUISettings(); });
 
 	if (isFullUI)
-		addEntry("游戏收藏设置", 0x777777FF, true, [this] { openCollectionSystemSettings(); });
+		addEntry("游戏集合设置", 0x777777FF, true, [this] { openCollectionSystemSettings(); });
 
 	if (isFullUI)
 		addEntry("其他设置", 0x777777FF, true, [this] { openOtherSettings(); });
@@ -61,7 +61,7 @@ void GuiMenu::openScraperSettings()
 	for(auto it = scrapers.cbegin(); it != scrapers.cend(); it++)
 		scraper_list->add(*it, *it, *it == Settings::getInstance()->getString("Scraper"));
 
-	s->addWithLabel("抓取自", scraper_list);
+	s->addWithLabel("从此网站抓取", scraper_list);
 	s->addSaveFunc([scraper_list] { Settings::getInstance()->setString("Scraper", scraper_list->getSelected()); });
 
 	// scrape ratings
@@ -241,13 +241,13 @@ void GuiMenu::openUISettings()
 	// quick system select (left/right in game list view)
 	auto quick_sys_select = std::make_shared<SwitchComponent>(mWindow);
 	quick_sys_select->setState(Settings::getInstance()->getBool("QuickSystemSelect"));
-	s->addWithLabel("快速选择系统", quick_sys_select);
+	s->addWithLabel("快速选择开关", quick_sys_select);
 	s->addSaveFunc([quick_sys_select] { Settings::getInstance()->setBool("QuickSystemSelect", quick_sys_select->getState()); });
 
 	// carousel transition option
 	auto move_carousel = std::make_shared<SwitchComponent>(mWindow);
 	move_carousel->setState(Settings::getInstance()->getBool("MoveCarousel"));
-	s->addWithLabel("旋转切换", move_carousel);
+	s->addWithLabel("旋转切换开关", move_carousel);
 	s->addSaveFunc([move_carousel] {
 		if (move_carousel->getState()
 			&& !Settings::getInstance()->getBool("MoveCarousel")
@@ -350,13 +350,13 @@ void GuiMenu::openUISettings()
 	// show help
 	auto show_help = std::make_shared<SwitchComponent>(mWindow);
 	show_help->setState(Settings::getInstance()->getBool("ShowHelpPrompts"));
-	s->addWithLabel("屏幕显示帮助", show_help);
+	s->addWithLabel("屏幕显示帮助条", show_help);
 	s->addSaveFunc([show_help] { Settings::getInstance()->setBool("ShowHelpPrompts", show_help->getState()); });
 
 	// enable filters (ForceDisableFilters)
 	auto enable_filter = std::make_shared<SwitchComponent>(mWindow);
 	enable_filter->setState(!Settings::getInstance()->getBool("ForceDisableFilters"));
-	s->addWithLabel("过滤器开关", enable_filter);
+	s->addWithLabel("筛选开关", enable_filter);
 	s->addSaveFunc([enable_filter] { 
 		bool filter_is_enabled = !Settings::getInstance()->getBool("ForceDisableFilters");
 		Settings::getInstance()->setBool("ForceDisableFilters", !enable_filter->getState()); 
@@ -590,8 +590,8 @@ HelpStyle GuiMenu::getHelpStyle()
 std::vector<HelpPrompt> GuiMenu::getHelpPrompts()
 {
 	std::vector<HelpPrompt> prompts;
-	prompts.push_back(HelpPrompt("up/down", "choose"));
-	prompts.push_back(HelpPrompt("a", "select"));
-	prompts.push_back(HelpPrompt("start", "close"));
+	prompts.push_back(HelpPrompt("up/down", "控制"));
+	prompts.push_back(HelpPrompt("a", "确认"));
+	prompts.push_back(HelpPrompt("start", "关闭"));
 	return prompts;
 }
