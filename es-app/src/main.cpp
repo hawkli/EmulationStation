@@ -27,6 +27,13 @@
 
 #include <FreeImage.h>
 
+#include <stdio.h>
+#include <string>
+#include <locale>
+#include <codecvt>
+#include <fstream>
+# pragma execution_character_set("utf-8")    
+
 bool scrape_cmdline = false;
 
 //ADD by HAWK.Li 2019.2.20.
