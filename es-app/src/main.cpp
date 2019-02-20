@@ -1,4 +1,4 @@
-﻿//EmulationStation, a graphical front-end for ROM browsing. Created by Alec "Aloshi" Lofquist.
+//EmulationStation, a graphical front-end for ROM browsing. Created by Alec "Aloshi" Lofquist.
 //http://www.aloshi.com
 
 #include "guis/GuiDetectDevice.h"
@@ -27,29 +27,7 @@
 
 #include <FreeImage.h>
 
-#include <stdio.h>
-#include <string>
-#include <locale>
-#include <codecvt>
-#include <fstream>
-# pragma execution_character_set("utf-8")    
-
 bool scrape_cmdline = false;
-
-//ADD by HAWK.Li 2019.2.20.
-// string的编码方式为utf8，则采用： 
-std::string wstring2utf8string(const std::wstring& str)
-{
-	static std::wstring_convert<std::codecvt_utf8<wchar_t> > strCnv;
-	return strCnv.to_bytes(str);
-}
-
-std::wstring utf8string2wstring(const std::string& str)
-{
-	static std::wstring_convert< std::codecvt_utf8<wchar_t> > strCnv;
-	return strCnv.from_bytes(str);
-}
-//End.
 
 bool parseArgs(int argc, char* argv[])
 {
@@ -168,30 +146,27 @@ bool parseArgs(int argc, char* argv[])
 			AttachConsole(ATTACH_PARENT_PROCESS);
 			freopen("CONOUT$", "wb", stdout);
 #endif
-			std::string txt = 
-				"EmulationStation是一个图形化ROM浏览器前端.\n"
-				"Written by Alec \"Aloshi\" Lofquist. 中文化:hawkli@yahoo.com\n"
-				"\b 版本 " << PROGRAM_VERSION_STRING << ", 创建于 " << PROGRAM_BUILT_STRING << "\n\n"
-				"\b 命令行参数:\n"
-				"\b --resolution [宽] [高]		强制使用指定的分辨率\n"
-				"\b --gamelist-only			不使用自动查找，只显示gamelist.xml中的内容\n"
-				"\b --ignore-gamelist		忽略gamelist (仅对查找问题有用)\n"
-				"\b --draw-framerate		显示帧率\n"
-				"\b --no-exit			菜单中不显示退出选项\n"
-				"\b --no-splash			不显示启动页\n"
-				"\b --debug				Debug模式\n"
-				"\b --scrape			抓取使用命令行窗口界面\n"
-				"\b --windowed			窗口化,一般同时使用--resolution参数\n"
-				"\b --vsync [1/on or 0/off]		开关vsync(默认为开)\n"
-				"\b --max-vram [size]		可用于交换的最多VRAM内存数. 0代表无限制\n"
-				"\b --force-kid			强制进入儿童模式\n"
-				"\b --force-kiosk			强制进入kiosk模式(不能更改配置的运行模式)\n"
-				"\b --force-disable-filters		界面忽略gamelist中的应用过滤器\n"
-				"\b --help, -h			显示本帮助页\n\n"
-				"\b 更多信息请查看README.md.\n";
-			std::wstring wtxt = utf8string2wstring(txt);    // 将utf-8的string转换为wstring
-			std::string txt_gbk = wstring2string(wtxt, "Chinese");    // 再将wstring转换为gbk的string
-			std::cout << txt_gbk;
+			std::cout <<
+				"EmulationStation, a graphical front-end for ROM browsing.\n"
+				"Written by Alec \"Aloshi\" Lofquist.\n"
+				"Version " << PROGRAM_VERSION_STRING << ", built " << PROGRAM_BUILT_STRING << "\n\n"
+				"Command line arguments:\n"
+				"--resolution [width] [height]	try and force a particular resolution\n"
+				"--gamelist-only			skip automatic game search, only read from gamelist.xml\n"
+				"--ignore-gamelist		ignore the gamelist (useful for troubleshooting)\n"
+				"--draw-framerate		display the framerate\n"
+				"--no-exit			don't show the exit option in the menu\n"
+				"--no-splash			don't show the splash screen\n"
+				"--debug				more logging, show console on Windows\n"
+				"--scrape			scrape using command line interface\n"
+				"--windowed			not fullscreen, should be used with --resolution\n"
+				"--vsync [1/on or 0/off]		turn vsync on or off (default is on)\n"
+				"--max-vram [size]		Max VRAM to use in Mb before swapping. 0 for unlimited\n"
+				"--force-kid		Force the UI mode to be Kid\n"
+				"--force-kiosk		Force the UI mode to be Kiosk\n"
+				"--force-disable-filters		Force the UI to ignore applied filters in gamelist\n"
+				"--help, -h			summon a sentient, angry tuba\n\n"
+				"More information available in README.md.\n";
 			return false; //exit after printing help
 		}
 	}
