@@ -47,7 +47,7 @@ DetailedGameListView::DetailedGameListView(Window* window, FileData* root) :
 	mLblGenre.setText("类　　别: ");
 	addChild(&mLblGenre);
 	addChild(&mGenre);
-	mLblPlayers.setText("Players: ");
+	mLblPlayers.setText("玩家数量: ");
 	addChild(&mLblPlayers);
 	addChild(&mPlayers);
 	mLblLastPlayed.setText("上次游戏: ");

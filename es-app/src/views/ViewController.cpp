@@ -65,7 +65,7 @@ void ViewController::goToStart()
 
 void ViewController::ReloadAndGoToStart()
 {
-	mWindow->renderLoadingScreen("Loading...");
+	mWindow->renderLoadingScreen("载入中...");
 	ViewController::get()->reloadAll();
 	ViewController::get()->goToStart();
 }
@@ -437,7 +437,7 @@ void ViewController::preload()
 		{
 			i++;
 			char buffer[100];
-			sprintf (buffer, "Loading '%s' (%d/%d)",
+			sprintf (buffer, "读取 '%s' (%d/%d)",
 				(*it)->getFullName().c_str(), i, SystemData::sSystemVector.size());
 			mWindow->renderLoadingScreen(std::string(buffer));
 		}
@@ -527,7 +527,7 @@ std::vector<HelpPrompt> ViewController::getHelpPrompts()
 
 	prompts = mCurrentView->getHelpPrompts();
 	if(!UIModeController::getInstance()->isUIModeKid())
-		prompts.push_back(HelpPrompt("start", "menu"));
+		prompts.push_back(HelpPrompt("start", "显示菜单"));
 
 	return prompts;
 }

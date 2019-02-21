@@ -40,7 +40,7 @@ GuiGeneralScreensaverOptions::GuiGeneralScreensaverOptions(Window* window, const
 			// if before it wasn't risky but now there's a risk of problems, show warning
 			mWindow->pushGui(new GuiMsgBox(mWindow,
 			"将从你的游戏列表中随机播放视频\n如果连续几次都未能成功播放\n将会显示黑底,您可以在菜单的\n界面设置-视频设置中重新配置\n",
-				"OK", [] { return; }));
+				"好", [] { return; }));
 		}
 		Settings::getInstance()->setString("ScreenSaverBehavior", screensaver_behavior->getSelected());
 		PowerSaver::updateTimeouts();

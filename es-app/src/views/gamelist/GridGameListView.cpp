@@ -293,7 +293,7 @@ void GridGameListView::updateInfoPanel()
 void GridGameListView::addPlaceholder()
 {
 	// empty grid - add a placeholder
-	FileData* placeholder = new FileData(PLACEHOLDER, "<No Entries Found>", this->mRoot->getSystem()->getSystemEnvData(), this->mRoot->getSystem());
+	FileData* placeholder = new FileData(PLACEHOLDER, "<找不到条目>", this->mRoot->getSystem()->getSystemEnvData(), this->mRoot->getSystem());
 	mGrid.add(placeholder->getName(), "", placeholder);
 }
 

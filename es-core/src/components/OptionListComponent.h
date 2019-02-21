@@ -128,7 +128,7 @@ private:
 		std::vector<HelpPrompt> getHelpPrompts() override
 		{
 			auto prompts = mMenu.getHelpPrompts();
-			prompts.push_back(HelpPrompt("b", "back"));
+			prompts.push_back(HelpPrompt("b", "返回"));
 			return prompts;
 		}
 	};
@@ -320,9 +320,9 @@ private:
 	{
 		std::vector<HelpPrompt> prompts;
 		if(!mMultiSelect)
-			prompts.push_back(HelpPrompt("left/right", "change"));
+			prompts.push_back(HelpPrompt("left/right", "选择"));
 
-		prompts.push_back(HelpPrompt("a", "select"));
+		prompts.push_back(HelpPrompt("a", "进入"));
 		return prompts;
 	}
 

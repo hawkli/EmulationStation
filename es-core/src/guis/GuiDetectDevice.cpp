@@ -22,7 +22,7 @@ GuiDetectDevice::GuiDetectDevice(Window* window, bool firstRun, const std::funct
 	addChild(&mGrid);
 	
 	// title
-	mTitle = std::make_shared<TextComponent>(mWindow, firstRun ? "WELCOME" : "CONFIGURE INPUT", 
+	mTitle = std::make_shared<TextComponent>(mWindow, firstRun ? "欢迎" : "配置输入设备", 
 		Font::get(FONT_SIZE_LARGE), 0x555555FF, ALIGN_CENTER);
 	mGrid.setEntry(mTitle, Vector2i(0, 0), false, true, Vector2i(1, 1), GridFlags::BORDER_BOTTOM);
 
@@ -31,17 +31,17 @@ GuiDetectDevice::GuiDetectDevice(Window* window, bool firstRun, const std::funct
 	int numDevices = InputManager::getInstance()->getNumJoysticks();
 	
 	if(numDevices > 0)
-		deviceInfo << numDevices << " GAMEPAD" << (numDevices > 1 ? "S" : "") << " DETECTED";
+		deviceInfo << " 检测到" << numDevices << " 个手柄" << (numDevices > 1 ? " " : "");
 	else
-		deviceInfo << "NO GAMEPADS DETECTED";
+		deviceInfo << "未检测到手柄";
 	mDeviceInfo = std::make_shared<TextComponent>(mWindow, deviceInfo.str(), Font::get(FONT_SIZE_SMALL), 0x999999FF, ALIGN_CENTER);
 	mGrid.setEntry(mDeviceInfo, Vector2i(0, 1), false, true);
 
 	// message
-	mMsg1 = std::make_shared<TextComponent>(mWindow, "HOLD A BUTTON ON YOUR DEVICE TO CONFIGURE IT.", Font::get(FONT_SIZE_SMALL), 0x777777FF, ALIGN_CENTER);
+	mMsg1 = std::make_shared<TextComponent>(mWindow, "按住A键开始配置你的设备.", Font::get(FONT_SIZE_SMALL), 0x777777FF, ALIGN_CENTER);
 	mGrid.setEntry(mMsg1, Vector2i(0, 2), false, true);
 
-	const char* msg2str = firstRun ? "PRESS F4 TO QUIT AT ANY TIME." : "PRESS ESC TO CANCEL.";
+	const char* msg2str = firstRun ? "任何时候按F4可退出." : "按ESC键取消配置.";
 	mMsg2 = std::make_shared<TextComponent>(mWindow, msg2str, Font::get(FONT_SIZE_SMALL), 0x777777FF, ALIGN_CENTER);
 	mGrid.setEntry(mMsg2, Vector2i(0, 3), false, true);
 

@@ -55,7 +55,7 @@ CollectionSystemManager::CollectionSystemManager(Window* window) : mWindow(windo
 		Utils::FileSystem::createDirectory(path);
 
 	mIsEditingCustom = false;
-	mEditingCollection = "Favorites";
+	mEditingCollection = "喜欢";
 	mEditingCollectionSystemData = NULL;
 	mCustomCollectionsBundle = NULL;
 }
@@ -438,16 +438,16 @@ void CollectionSystemManager::setEditMode(std::string collectionName)
 	// if it's bundled, this needs to be the bundle system
 	mEditingCollectionSystemData = sysData;
 
-	GuiInfoPopup* s = new GuiInfoPopup(mWindow, "Editing the '" + Utils::String::toUpper(collectionName) + "' Collection. Add/remove games with Y.", 10000);
+	GuiInfoPopup* s = new GuiInfoPopup(mWindow, "编辑 '" + Utils::String::toUpper(collectionName) + "' 集合. 使用Y键增加/删除游戏.", 10000);
 	mWindow->setInfoPopup(s);
 }
 
 void CollectionSystemManager::exitEditMode()
 {
-	GuiInfoPopup* s = new GuiInfoPopup(mWindow, "Finished editing the '" + mEditingCollection + "' Collection.", 4000);
+	GuiInfoPopup* s = new GuiInfoPopup(mWindow, "完成编辑 '" + mEditingCollection + "' 集合.", 4000);
 	mWindow->setInfoPopup(s);
 	mIsEditingCustom = false;
-	mEditingCollection = "Favorites";
+	mEditingCollection = "喜欢";
 }
 
 // adds or removes a game from a specific collection
@@ -525,11 +525,11 @@ bool CollectionSystemManager::toggleGameInCollection(FileData* file)
 		}
 		if (adding)
 		{
-			s = new GuiInfoPopup(mWindow, "Added '" + Utils::String::removeParenthesis(name) + "' to '" + Utils::String::toUpper(sysName) + "'", 4000);
+			s = new GuiInfoPopup(mWindow, "增加 '" + Utils::String::removeParenthesis(name) + "' 到 '" + Utils::String::toUpper(sysName) + "'", 4000);
 		}
 		else
 		{
-			s = new GuiInfoPopup(mWindow, "Removed '" + Utils::String::removeParenthesis(name) + "' from '" + Utils::String::toUpper(sysName) + "'", 4000);
+			s = new GuiInfoPopup(mWindow, "删除 '" + Utils::String::removeParenthesis(name) + "' 从 '" + Utils::String::toUpper(sysName) + "'", 4000);
 		}
 		mWindow->setInfoPopup(s);
 		return true;
@@ -575,7 +575,7 @@ void CollectionSystemManager::updateCollectionFolderMetadata(SystemData* sys)
 {
 	FileData* rootFolder = sys->getRootFolder();
 
-	std::string desc = "This collection is empty.";
+	std::string desc = "集合为空.";
 	std::string rating = "0";
 	std::string players = "1";
 	std::string releasedate = "N/A";
