@@ -39,7 +39,7 @@ GuiVideoScreensaverOptions::GuiVideoScreensaverOptions(Window* window, const cha
 #ifndef _RPI_
 	auto captions_compatibility = std::make_shared<SwitchComponent>(mWindow);
 	captions_compatibility->setState(Settings::getInstance()->getBool("CaptionsCompatibility"));
-	addWithLabel("USE COMPATIBLE LOW RESOLUTION FOR CAPTIONS", captions_compatibility);
+	addWithLabel("兼容低分辨率模式", captions_compatibility);
 	addSaveFunc([captions_compatibility] { Settings::getInstance()->setBool("CaptionsCompatibility", captions_compatibility->getState()); });
 #endif
 
