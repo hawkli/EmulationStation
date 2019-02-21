@@ -51,7 +51,7 @@ GridGameListView::GridGameListView(Window* window, FileData* root) :
 	addChild(&mLblLastPlayed);
 	mLastPlayed.setDisplayRelative(true);
 	addChild(&mLastPlayed);
-	mLblPlayCount.setText("游戏时长: ");
+	mLblPlayCount.setText("游戏次数: ");
 	addChild(&mLblPlayCount);
 	addChild(&mPlayCount);
 

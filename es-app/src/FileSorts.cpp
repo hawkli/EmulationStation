@@ -11,8 +11,8 @@ namespace FileSorts
 		FileData::SortType(&compareRating, true, "评分,升序"),
 		FileData::SortType(&compareRating, false, "评分,降序"),
 
-		FileData::SortType(&compareTimesPlayed, true, "游戏时长,升序"),
-		FileData::SortType(&compareTimesPlayed, false, "游戏时长,降序"),
+		FileData::SortType(&compareTimesPlayed, true, "游戏次数,升序"),
+		FileData::SortType(&compareTimesPlayed, false, "游戏次数,降序"),
 
 		FileData::SortType(&compareLastPlayed, true, "上次游戏,升序"),
 		FileData::SortType(&compareLastPlayed, false, "上次游戏,降序"),

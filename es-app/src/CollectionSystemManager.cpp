@@ -55,7 +55,7 @@ CollectionSystemManager::CollectionSystemManager(Window* window) : mWindow(windo
 		Utils::FileSystem::createDirectory(path);
 
 	mIsEditingCustom = false;
-	mEditingCollection = "喜欢";
+	mEditingCollection = "加入收藏";
 	mEditingCollectionSystemData = NULL;
 	mCustomCollectionsBundle = NULL;
 }
@@ -447,7 +447,7 @@ void CollectionSystemManager::exitEditMode()
 	GuiInfoPopup* s = new GuiInfoPopup(mWindow, "完成编辑 '" + mEditingCollection + "' 集合.", 4000);
 	mWindow->setInfoPopup(s);
 	mIsEditingCustom = false;
-	mEditingCollection = "喜欢";
+	mEditingCollection = "加入收藏";
 }
 
 // adds or removes a game from a specific collection

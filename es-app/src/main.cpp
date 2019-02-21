@@ -148,8 +148,8 @@ bool parseArgs(int argc, char* argv[])
 #endif
 			std::cout <<
 				"EmulationStation, a graphical front-end for ROM browsing.\n"
-				"Written by Alec \"Aloshi\" Lofquist.\n"
-				"Version " << PROGRAM_VERSION_STRING << ", built " << PROGRAM_BUILT_STRING << "\n\n"
+				"Written by Alec \"Aloshi\" Lofquist.  CN-Version: hawkli@yahoo.com \n"
+				"Version " << PROGRAM_VERSION_STRING << ", built " << PROGRAM_BUILT_STRING << "CN-Version.0.2d \n\n"
 				"Command line arguments:\n"
 				"--resolution [width] [height]	try and force a particular resolution\n"
 				"--gamelist-only			skip automatic game search, only read from gamelist.xml\n"

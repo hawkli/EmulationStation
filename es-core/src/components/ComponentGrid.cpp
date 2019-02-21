@@ -447,7 +447,7 @@ std::vector<HelpPrompt> ComponentGrid::getHelpPrompts()
 	if(canScrollHoriz && canScrollVert)
 		prompts.push_back(HelpPrompt("up/down/left/right", "选择"));
 	else if(canScrollHoriz)
-		prompts.push_back(HelpPrompt("left/right", "选择"));
+		prompts.push_back(HelpPrompt("left/right", "改变"));
 	else if(canScrollVert)
 		prompts.push_back(HelpPrompt("up/down", "选择"));
 

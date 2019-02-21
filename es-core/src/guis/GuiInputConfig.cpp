@@ -18,31 +18,31 @@ struct InputConfigStructure
 static const int inputCount = 25;
 static const InputConfigStructure GUI_INPUT_CONFIG_LIST[inputCount] =
 {
-	{ "上",               false, "D-PAD UP",           ":/help/dpad_up.svg" },
-	{ "下",             false, "D-PAD DOWN",         ":/help/dpad_down.svg" },
-	{ "左",             false, "D-PAD LEFT",         ":/help/dpad_left.svg" },
-	{ "右",            false, "D-PAD RIGHT",        ":/help/dpad_right.svg" },
-	{ "启动",            true,  "START",              ":/help/button_start.svg" },
-	{ "选择",           true,  "SELECT",             ":/help/button_select.svg" },
-	{ "A键",                false, "BUTTON A / EAST",    ":/help/buttons_east.svg" },
-	{ "B键",                true,  "BUTTON B / SOUTH",   ":/help/buttons_south.svg" },
-	{ "X键",                true,  "BUTTON X / NORTH",   ":/help/buttons_north.svg" },
-	{ "Y键",                true,  "BUTTON Y / WEST",    ":/help/buttons_west.svg" },
-	{ "左肩键",     true,  "LEFT SHOULDER",      ":/help/button_l.svg" },
-	{ "右肩键",    true,  "RIGHT SHOULDER",     ":/help/button_r.svg" },
-	{ "左扳机",      true,  "LEFT TRIGGER",       ":/help/button_lt.svg" },
-	{ "右扳机",     true,  "RIGHT TRIGGER",      ":/help/button_rt.svg" },
-	{ "左拇指键",        true,  "LEFT THUMB",         ":/help/analog_thumb.svg" },
-	{ "右拇指键",       true,  "RIGHT THUMB",        ":/help/analog_thumb.svg" },
-	{ "左模拟摇杆-上",     true,  "LEFT ANALOG UP",     ":/help/analog_up.svg" },
-	{ "左模拟摇杆-下",   true,  "LEFT ANALOG DOWN",   ":/help/analog_down.svg" },
-	{ "左模拟摇杆-左",   true,  "LEFT ANALOG LEFT",   ":/help/analog_left.svg" },
-	{ "左模拟摇杆-右",  true,  "LEFT ANALOG RIGHT",  ":/help/analog_right.svg" },
-	{ "右模拟摇杆-上",    true,  "RIGHT ANALOG UP",    ":/help/analog_up.svg" },
-	{ "右模拟摇杆-下",  true,  "RIGHT ANALOG DOWN",  ":/help/analog_down.svg" },
-	{ "右模拟摇杆-左",  true,  "RIGHT ANALOG LEFT",  ":/help/analog_left.svg" },
-	{ "右模拟摇杆-右", true,  "RIGHT ANALOG RIGHT", ":/help/analog_right.svg" },
-	{ "热键",     true,  "HOTKEY ENABLE",      ":/help/button_hotkey.svg" }
+	{ "Up",               false, "上",           ":/help/dpad_up.svg" },
+	{ "Down",             false, "下",         ":/help/dpad_down.svg" },
+	{ "Left",             false, "左",         ":/help/dpad_left.svg" },
+	{ "Right",            false, "右",        ":/help/dpad_right.svg" },
+	{ "Start",            true,  "启动",              ":/help/button_start.svg" },
+	{ "Select",           true,  "选择",             ":/help/button_select.svg" },
+	{ "A",                false, "A键 / 东",    ":/help/buttons_east.svg" },
+	{ "B",                true,  "B键 / 南",   ":/help/buttons_south.svg" },
+	{ "X",                true,  "X键 / 北",   ":/help/buttons_north.svg" },
+	{ "Y",                true,  "Y键 / 西",    ":/help/buttons_west.svg" },
+	{ "LeftShoulder",     true,  "左肩键",      ":/help/button_l.svg" },
+	{ "RightShoulder",    true,  "右肩键",     ":/help/button_r.svg" },
+	{ "LeftTrigger",      true,  "左扳机",       ":/help/button_lt.svg" },
+	{ "RightTrigger",     true,  "右扳机",      ":/help/button_rt.svg" },
+	{ "LeftThumb",        true,  "左拇指键",         ":/help/analog_thumb.svg" },
+	{ "RightThumb",       true,  "右拇指键",        ":/help/analog_thumb.svg" },
+	{ "LeftAnalogUp",     true,  "左模拟摇杆-上",     ":/help/analog_up.svg" },
+	{ "LeftAnalogDown",   true,  "左模拟摇杆-下",   ":/help/analog_down.svg" },
+	{ "LeftAnalogLeft",   true,  "左模拟摇杆-左",   ":/help/analog_left.svg" },
+	{ "LeftAnalogRight",  true,  "左模拟摇杆-右",  ":/help/analog_right.svg" },
+	{ "RightAnalogUp",    true,  "右模拟摇杆-上",    ":/help/analog_up.svg" },
+	{ "RightAnalogDown",  true,  "右模拟摇杆-下",  ":/help/analog_down.svg" },
+	{ "RightAnalogLeft",  true,  "右模拟摇杆-左",  ":/help/analog_left.svg" },
+	{ "RightAnalogRight", true,  "右模拟摇杆-右", ":/help/analog_right.svg" },
+	{ "HotKeyEnable",     true,  "热键",      ":/help/button_hotkey.svg" }
 };
 
 //MasterVolUp and MasterVolDown are also hooked up, but do not appear on this screen.
@@ -68,7 +68,7 @@ GuiInputConfig::GuiInputConfig(Window* window, InputConfig* target, bool reconfi
 	// 0 is a spacer row
 	mGrid.setEntry(std::make_shared<GuiComponent>(mWindow), Vector2i(0, 0), false);
 
-	mTitle = std::make_shared<TextComponent>(mWindow, "CONFIGURING", Font::get(FONT_SIZE_LARGE), 0x555555FF, ALIGN_CENTER);
+	mTitle = std::make_shared<TextComponent>(mWindow, "配置", Font::get(FONT_SIZE_LARGE), 0x555555FF, ALIGN_CENTER);
 	mGrid.setEntry(mTitle, Vector2i(0, 1), false, true);
 	
 	std::stringstream ss;
@@ -81,7 +81,7 @@ GuiInputConfig::GuiInputConfig(Window* window, InputConfig* target, bool reconfi
 	mSubtitle1 = std::make_shared<TextComponent>(mWindow, Utils::String::toUpper(ss.str()), Font::get(FONT_SIZE_MEDIUM), 0x555555FF, ALIGN_CENTER);
 	mGrid.setEntry(mSubtitle1, Vector2i(0, 2), false, true);
 
-	mSubtitle2 = std::make_shared<TextComponent>(mWindow, "按任何键跳过", Font::get(FONT_SIZE_SMALL), 0x999999FF, ALIGN_CENTER);
+	mSubtitle2 = std::make_shared<TextComponent>(mWindow, "按键并配置", Font::get(FONT_SIZE_SMALL), 0x999999FF, ALIGN_CENTER);
 	mGrid.setEntry(mSubtitle2, Vector2i(0, 3), false, true);
 
 	// 4 is a spacer row

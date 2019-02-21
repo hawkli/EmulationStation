@@ -320,7 +320,7 @@ private:
 	{
 		std::vector<HelpPrompt> prompts;
 		if(!mMultiSelect)
-			prompts.push_back(HelpPrompt("left/right", "选择"));
+			prompts.push_back(HelpPrompt("left/right", "改变"));
 
 		prompts.push_back(HelpPrompt("a", "进入"));
 		return prompts;
