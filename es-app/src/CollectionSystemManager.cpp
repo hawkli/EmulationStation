@@ -26,10 +26,10 @@ CollectionSystemManager::CollectionSystemManager(Window* window) : mWindow(windo
 {
 	CollectionSystemDecl systemDecls[] = {
 		//type                  name            long name            //default sort              // theme folder            // isCustom
-		{ AUTO_ALL_GAMES,       "all",          "all games",         "filename, ascending",      "auto-allgames",           false },
-		{ AUTO_LAST_PLAYED,     "recent",       "last played",       "last played, descending",  "auto-lastplayed",         false },
-		{ AUTO_FAVORITES,       "favorites",    "favorites",         "filename, ascending",      "auto-favorites",          false },
-		{ CUSTOM_COLLECTION,    myCollectionsName,  "collections",    "filename, ascending",      "custom-collections",      true }
+		{ AUTO_ALL_GAMES,       "全部",          "全部游戏",         "文件名,升序",             "auto-allgames",           false },
+		{ AUTO_LAST_PLAYED,     "上次",          "上次游戏",         "上次游戏,降序",           "auto-lastplayed",         false },
+		{ AUTO_FAVORITES,       "喜欢",          "喜欢",             "文件名,升序",             "auto-favorites",          false },
+		{ CUSTOM_COLLECTION,    myCollectionsName,  "集合",          "文件名,升序",             "custom-collections",      true }
 	};
 
 	// create a map

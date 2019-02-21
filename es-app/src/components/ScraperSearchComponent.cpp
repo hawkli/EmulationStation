@@ -50,11 +50,11 @@ ScraperSearchComponent::ScraperSearchComponent(Window* window, SearchType type) 
 	mMD_Genre = std::make_shared<TextComponent>(mWindow, "", font, mdColor);
 	mMD_Players = std::make_shared<TextComponent>(mWindow, "", font, mdColor);
 
-	mMD_Pairs.push_back(MetaDataPair(std::make_shared<TextComponent>(mWindow, "评    分:", font, mdLblColor), mMD_Rating, false));
+	mMD_Pairs.push_back(MetaDataPair(std::make_shared<TextComponent>(mWindow, "评　　分:", font, mdLblColor), mMD_Rating, false));
 	mMD_Pairs.push_back(MetaDataPair(std::make_shared<TextComponent>(mWindow, "发布年份:", font, mdLblColor), mMD_ReleaseDate));
-	mMD_Pairs.push_back(MetaDataPair(std::make_shared<TextComponent>(mWindow, "开 发 商:", font, mdLblColor), mMD_Developer));
-	mMD_Pairs.push_back(MetaDataPair(std::make_shared<TextComponent>(mWindow, "发 行 商:", font, mdLblColor), mMD_Publisher));
-	mMD_Pairs.push_back(MetaDataPair(std::make_shared<TextComponent>(mWindow, "类    型:", font, mdLblColor), mMD_Genre));
+	mMD_Pairs.push_back(MetaDataPair(std::make_shared<TextComponent>(mWindow, "开发厂商:", font, mdLblColor), mMD_Developer));
+	mMD_Pairs.push_back(MetaDataPair(std::make_shared<TextComponent>(mWindow, "发行厂商:", font, mdLblColor), mMD_Publisher));
+	mMD_Pairs.push_back(MetaDataPair(std::make_shared<TextComponent>(mWindow, "类　　型:", font, mdLblColor), mMD_Genre));
 	mMD_Pairs.push_back(MetaDataPair(std::make_shared<TextComponent>(mWindow, "玩家数量:", font, mdLblColor), mMD_Players));
 
 	mMD_Grid = std::make_shared<ComponentGrid>(mWindow, Vector2i(2, (int)mMD_Pairs.size()*2 - 1));
@@ -240,7 +240,7 @@ void ScraperSearchComponent::onSearchDone(const std::vector<ScraperSearchResult>
 		else
 		{
 			ComponentListRow row;
-			row.addElement(std::make_shared<TextComponent>(mWindow, "未找到游戏-跳过", font, color), true);
+			row.addElement(std::make_shared<TextComponent>(mWindow, "未搜寻到结果-跳过", font, color), true);
 
 			if(mSkipCallback)
 				row.makeAcceptInputHandler(mSkipCallback);
@@ -455,10 +455,10 @@ void ScraperSearchComponent::openInputScreen(ScraperSearchParams& params)
 	};
 
 	stop();
-	mWindow->pushGui(new GuiTextEditPopup(mWindow, "搜索自", 
+	mWindow->pushGui(new GuiTextEditPopup(mWindow, "自定义搜索名称", 
 		// initial value is last search if there was one, otherwise the clean path name
 		params.nameOverride.empty() ? params.game->getCleanName() : params.nameOverride, 
-		searchForFunc, false, "SEARCH"));
+		searchForFunc, false, "搜索"));
 }
 
 std::vector<HelpPrompt> ScraperSearchComponent::getHelpPrompts()

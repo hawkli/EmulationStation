@@ -5,35 +5,35 @@
 namespace FileSorts
 {
 	const FileData::SortType typesArr[] = {
-		FileData::SortType(&compareName, true, "filename, ascending"),
-		FileData::SortType(&compareName, false, "filename, descending"),
+		FileData::SortType(&compareName, true, "文件名,升序"),
+		FileData::SortType(&compareName, false, "文件名,降序"),
 
-		FileData::SortType(&compareRating, true, "rating, ascending"),
-		FileData::SortType(&compareRating, false, "rating, descending"),
+		FileData::SortType(&compareRating, true, "评分,升序"),
+		FileData::SortType(&compareRating, false, "评分,降序"),
 
-		FileData::SortType(&compareTimesPlayed, true, "times played, ascending"),
-		FileData::SortType(&compareTimesPlayed, false, "times played, descending"),
+		FileData::SortType(&compareTimesPlayed, true, "游戏时长,升序"),
+		FileData::SortType(&compareTimesPlayed, false, "游戏时长,降序"),
 
-		FileData::SortType(&compareLastPlayed, true, "last played, ascending"),
-		FileData::SortType(&compareLastPlayed, false, "last played, descending"),
+		FileData::SortType(&compareLastPlayed, true, "上次游戏,升序"),
+		FileData::SortType(&compareLastPlayed, false, "上次游戏,降序"),
 
-		FileData::SortType(&compareNumPlayers, true, "number players, ascending"),
-		FileData::SortType(&compareNumPlayers, false, "number players, descending"),
+		FileData::SortType(&compareNumPlayers, true, "玩家数量,升序"),
+		FileData::SortType(&compareNumPlayers, false, "玩家数量,降序"),
 
-		FileData::SortType(&compareReleaseDate, true, "release date, ascending"),
-		FileData::SortType(&compareReleaseDate, false, "release date, descending"),
+		FileData::SortType(&compareReleaseDate, true, "发布年份,升序"),
+		FileData::SortType(&compareReleaseDate, false, "发布年份,降序"),
 
-		FileData::SortType(&compareGenre, true, "genre, ascending"),
-		FileData::SortType(&compareGenre, false, "genre, descending"),
+		FileData::SortType(&compareGenre, true, "类别,升序"),
+		FileData::SortType(&compareGenre, false, "类别,降序"),
 
-		FileData::SortType(&compareDeveloper, true, "developer, ascending"),
-		FileData::SortType(&compareDeveloper, false, "developer, descending"),
+		FileData::SortType(&compareDeveloper, true, "研发厂商,升序"),
+		FileData::SortType(&compareDeveloper, false, "研发厂商,降序"),
 
-		FileData::SortType(&comparePublisher, true, "publisher, ascending"),
-		FileData::SortType(&comparePublisher, false, "publisher, descending"),
+		FileData::SortType(&comparePublisher, true, "发行厂商,升序"),
+		FileData::SortType(&comparePublisher, false, "发行厂商,降序"),
 
-		FileData::SortType(&compareSystem, true, "system, ascending"),
-		FileData::SortType(&compareSystem, false, "system, descending")
+		FileData::SortType(&compareSystem, true, "系统,升序"),
+		FileData::SortType(&compareSystem, false, "系统,降序")
 	};
 
 	const std::vector<FileData::SortType> SortTypes(typesArr, typesArr + sizeof(typesArr)/sizeof(typesArr[0]));

@@ -103,7 +103,7 @@ void GuiScraperMulti::doNextSearch()
 
 	// update subtitle
 	ss.str(""); // clear
-	ss << "GAME " << (mCurrentGame + 1) << " OF " << mTotalGames << " - " << Utils::String::toUpper(Utils::FileSystem::getFileName(mSearchQueue.front().game->getPath()));
+	ss << "当前:" << (mCurrentGame + 1) << " 总计:" << mTotalGames << " - " << Utils::String::toUpper(Utils::FileSystem::getFileName(mSearchQueue.front().game->getPath()));
 	mSubtitle->setText(ss.str());
 
 	mSearchComp->search(mSearchQueue.front());
@@ -135,12 +135,12 @@ void GuiScraperMulti::finish()
 	std::stringstream ss;
 	if(mTotalSuccessful == 0)
 	{
-		ss << "NO GAMES WERE SCRAPED.";
+		ss << "没有抓取到游戏.";
 	}else{
-		ss << mTotalSuccessful << " GAME" << ((mTotalSuccessful > 1) ? "S" : "") << " SUCCESSFULLY SCRAPED!";
+		ss << mTotalSuccessful << " 个游戏" << ((mTotalSuccessful > 1) ? " " : "") << " 成功抓取!";
 
 		if(mTotalSkipped > 0)
-			ss << "\n" << mTotalSkipped << " GAME" << ((mTotalSkipped > 1) ? "S" : "") << " SKIPPED.";
+			ss << "\n" << mTotalSkipped << " 个游戏" << ((mTotalSkipped > 1) ? " " : "") << " 跳过.";
 	}
 
 	mWindow->pushGui(new GuiMsgBox(mWindow, ss.str(),

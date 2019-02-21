@@ -34,8 +34,8 @@ GuiScraperStart::GuiScraperStart(Window* window) : GuiComponent(window),
 	mApproveResults->setState(true);
 	mMenu.addWithLabel("发生冲突时由用户决定", mApproveResults);
 
-	mMenu.addButton("START", "开始", std::bind(&GuiScraperStart::pressedStart, this));
-	mMenu.addButton("BACK", "返回", [&] { delete this; });
+	mMenu.addButton("开始", "开始", std::bind(&GuiScraperStart::pressedStart, this));
+	mMenu.addButton("返回", "返回", [&] { delete this; });
 
 	mMenu.setPosition((Renderer::getScreenWidth() - mMenu.getSize().x()) / 2, Renderer::getScreenHeight() * 0.15f);
 }
