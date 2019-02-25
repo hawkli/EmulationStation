@@ -1,4 +1,4 @@
-#include "guis/GuiMetaDataEd.h"
+﻿#include "guis/GuiMetaDataEd.h"
 
 #include "components/ButtonComponent.h"
 #include "components/ComponentList.h"
@@ -35,7 +35,7 @@ GuiMetaDataEd::GuiMetaDataEd(Window* window, MetaDataList* md, const std::vector
 
 	mHeaderGrid = std::make_shared<ComponentGrid>(mWindow, Vector2i(1, 5));
 
-	mTitle = std::make_shared<TextComponent>(mWindow, "编辑元数据", Font::get(FONT_SIZE_LARGE), 0x555555FF, ALIGN_CENTER);
+	mTitle = std::make_shared<TextComponent>(mWindow, u8"编辑元数据", Font::get(FONT_SIZE_LARGE), 0x555555FF, ALIGN_CENTER);
 	mSubtitle = std::make_shared<TextComponent>(mWindow, Utils::String::toUpper(Utils::FileSystem::getFileName(scraperParams.game->getPath())),
 		Font::get(FONT_SIZE_SMALL), 0x777777FF, ALIGN_CENTER);
 	mHeaderGrid->setEntry(mTitle, Vector2i(0, 1), false, true);
@@ -140,16 +140,16 @@ GuiMetaDataEd::GuiMetaDataEd(Window* window, MetaDataList* md, const std::vector
 	std::vector< std::shared_ptr<ButtonComponent> > buttons;
 
 	if(!scraperParams.system->hasPlatformId(PlatformIds::PLATFORM_IGNORE))
-		buttons.push_back(std::make_shared<ButtonComponent>(mWindow, "抓取", "抓取", std::bind(&GuiMetaDataEd::fetch, this)));
+		buttons.push_back(std::make_shared<ButtonComponent>(mWindow, u8"抓取", u8"抓取", std::bind(&GuiMetaDataEd::fetch, this)));
 
-	buttons.push_back(std::make_shared<ButtonComponent>(mWindow, "保存", "保存", [&] { save(); delete this; }));
-	buttons.push_back(std::make_shared<ButtonComponent>(mWindow, "取消", "取消", [&] { delete this; }));
+	buttons.push_back(std::make_shared<ButtonComponent>(mWindow, u8"保存", u8"保存", [&] { save(); delete this; }));
+	buttons.push_back(std::make_shared<ButtonComponent>(mWindow, u8"取消", u8"取消", [&] { delete this; }));
 
 	if(mDeleteFunc)
 	{
 		auto deleteFileAndSelf = [&] { mDeleteFunc(); delete this; };
-		auto deleteBtnFunc = [this, deleteFileAndSelf] { mWindow->pushGui(new GuiMsgBox(mWindow, "将删除实际游戏文件!\n是否确认?", "是", deleteFileAndSelf, "否", nullptr)); };
-		buttons.push_back(std::make_shared<ButtonComponent>(mWindow, "删除", "删除", deleteBtnFunc));
+		auto deleteBtnFunc = [this, deleteFileAndSelf] { mWindow->pushGui(new GuiMsgBox(mWindow, u8"将删除实际游戏文件!\n是否确认?", u8"是", deleteFileAndSelf, u8"否", nullptr)); };
+		buttons.push_back(std::make_shared<ButtonComponent>(mWindow, u8"删除", u8"删除", deleteBtnFunc));
 	}
 
 	mButtons = makeButtonGrid(mWindow, buttons);
@@ -250,9 +250,9 @@ void GuiMetaDataEd::close(bool closeAllWindows)
 	{
 		// changes were made, ask if the user wants to save them
 		mWindow->pushGui(new GuiMsgBox(mWindow,
-			"保存确认?",
-			"是", [this, closeFunc] { save(); closeFunc(); },
-			"否", closeFunc
+			u8"保存确认?",
+			u8"是", [this, closeFunc] { save(); closeFunc(); },
+			u8"否", closeFunc
 		));
 	}else{
 		closeFunc();
@@ -277,7 +277,7 @@ bool GuiMetaDataEd::input(InputConfig* config, Input input)
 std::vector<HelpPrompt> GuiMetaDataEd::getHelpPrompts()
 {
 	std::vector<HelpPrompt> prompts = mGrid.getHelpPrompts();
-	prompts.push_back(HelpPrompt("b", "返回"));
-	prompts.push_back(HelpPrompt("start", "关闭"));
+	prompts.push_back(HelpPrompt("b", u8"返回"));
+	prompts.push_back(HelpPrompt("start", u8"关闭"));
 	return prompts;
 }

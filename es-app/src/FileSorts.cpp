@@ -1,39 +1,39 @@
-#include "FileSorts.h"
+﻿#include "FileSorts.h"
 
 #include "utils/StringUtil.h"
 
 namespace FileSorts
 {
 	const FileData::SortType typesArr[] = {
-		FileData::SortType(&compareName, true, "文件名,升序"),
-		FileData::SortType(&compareName, false, "文件名,降序"),
+		FileData::SortType(&compareName, true, u8"文件名,升序"),
+		FileData::SortType(&compareName, false, u8"文件名,降序"),
 
-		FileData::SortType(&compareRating, true, "评分,升序"),
-		FileData::SortType(&compareRating, false, "评分,降序"),
+		FileData::SortType(&compareRating, true, u8"评分,升序"),
+		FileData::SortType(&compareRating, false, u8"评分,降序"),
 
-		FileData::SortType(&compareTimesPlayed, true, "游戏次数,升序"),
-		FileData::SortType(&compareTimesPlayed, false, "游戏次数,降序"),
+		FileData::SortType(&compareTimesPlayed, true, u8"游戏次数,升序"),
+		FileData::SortType(&compareTimesPlayed, false, u8"游戏次数,降序"),
 
-		FileData::SortType(&compareLastPlayed, true, "上次游戏,升序"),
-		FileData::SortType(&compareLastPlayed, false, "上次游戏,降序"),
+		FileData::SortType(&compareLastPlayed, true, u8"上次游戏,升序"),
+		FileData::SortType(&compareLastPlayed, false, u8"上次游戏,降序"),
 
-		FileData::SortType(&compareNumPlayers, true, "玩家数量,升序"),
-		FileData::SortType(&compareNumPlayers, false, "玩家数量,降序"),
+		FileData::SortType(&compareNumPlayers, true, u8"玩家数量,升序"),
+		FileData::SortType(&compareNumPlayers, false, u8"玩家数量,降序"),
 
-		FileData::SortType(&compareReleaseDate, true, "发布年份,升序"),
-		FileData::SortType(&compareReleaseDate, false, "发布年份,降序"),
+		FileData::SortType(&compareReleaseDate, true, u8"发布年份,升序"),
+		FileData::SortType(&compareReleaseDate, false, u8"发布年份,降序"),
 
-		FileData::SortType(&compareGenre, true, "类别,升序"),
-		FileData::SortType(&compareGenre, false, "类别,降序"),
+		FileData::SortType(&compareGenre, true, u8"类别,升序"),
+		FileData::SortType(&compareGenre, false, u8"类别,降序"),
 
-		FileData::SortType(&compareDeveloper, true, "研发厂商,升序"),
-		FileData::SortType(&compareDeveloper, false, "研发厂商,降序"),
+		FileData::SortType(&compareDeveloper, true, u8"研发厂商,升序"),
+		FileData::SortType(&compareDeveloper, false, u8"研发厂商,降序"),
 
-		FileData::SortType(&comparePublisher, true, "发行厂商,升序"),
-		FileData::SortType(&comparePublisher, false, "发行厂商,降序"),
+		FileData::SortType(&comparePublisher, true, u8"发行厂商,升序"),
+		FileData::SortType(&comparePublisher, false, u8"发行厂商,降序"),
 
-		FileData::SortType(&compareSystem, true, "系统,升序"),
-		FileData::SortType(&compareSystem, false, "系统,降序")
+		FileData::SortType(&compareSystem, true, u8"系统,升序"),
+		FileData::SortType(&compareSystem, false, u8"系统,降序")
 	};
 
 	const std::vector<FileData::SortType> SortTypes(typesArr, typesArr + sizeof(typesArr)/sizeof(typesArr[0]));

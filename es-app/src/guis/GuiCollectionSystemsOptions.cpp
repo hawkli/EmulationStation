@@ -1,4 +1,4 @@
-#include "guis/GuiCollectionSystemsOptions.h"
+﻿#include "guis/GuiCollectionSystemsOptions.h"
 
 #include "components/OptionListComponent.h"
 #include "components/SwitchComponent.h"
@@ -9,7 +9,7 @@
 #include "CollectionSystemManager.h"
 #include "Window.h"
 
-GuiCollectionSystemsOptions::GuiCollectionSystemsOptions(Window* window) : GuiComponent(window), mMenu(window, "游戏集合设置")
+GuiCollectionSystemsOptions::GuiCollectionSystemsOptions(Window* window) : GuiComponent(window), mMenu(window, u8"游戏集合设置")
 {
 	initializeMenu();
 }
@@ -27,10 +27,10 @@ void GuiCollectionSystemsOptions::initializeMenu()
 	std::vector<std::string> unusedFolders = CollectionSystemManager::get()->getUnusedSystemsFromTheme();
 	if (unusedFolders.size() > 0)
 	{
-		addEntry("从主题中创建新的游戏集合", 0x777777FF, true,
+		addEntry(u8"从主题中创建新的游戏集合", 0x777777FF, true,
 		[this, unusedFolders] {
-			auto s = new GuiSettings(mWindow, "选择想创建的主题目录");
-			std::shared_ptr< OptionListComponent<std::string> > folderThemes = std::make_shared< OptionListComponent<std::string> >(mWindow, "选择想创建的主题目录", true);
+			auto s = new GuiSettings(mWindow, u8"选择从哪个主题创建集合");
+			std::shared_ptr< OptionListComponent<std::string> > folderThemes = std::make_shared< OptionListComponent<std::string> >(mWindow, u8"选择从哪个主题创建集合", true);
 
 			// add Custom Systems
 			for(auto it = unusedFolders.cbegin() ; it != unusedFolders.cend() ; it++ )
@@ -52,7 +52,7 @@ void GuiCollectionSystemsOptions::initializeMenu()
 	}
 
 	ComponentListRow row;
-	row.addElement(std::make_shared<TextComponent>(mWindow, "创建新的自定义集合", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
+	row.addElement(std::make_shared<TextComponent>(mWindow, u8"创建新的自定义集合", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 	auto createCustomCollection = [this](const std::string& newVal) {
 		std::string name = newVal;
 		// we need to store the first Gui and remove it, as it'll be deleted by the actual Gui
@@ -62,28 +62,28 @@ void GuiCollectionSystemsOptions::initializeMenu()
 		createCollection(name);
 	};
 	row.makeAcceptInputHandler([this, createCustomCollection] {
-		mWindow->pushGui(new GuiTextEditPopup(mWindow, "新集合的名字", "", createCustomCollection, false));
+		mWindow->pushGui(new GuiTextEditPopup(mWindow, u8"新集合的名字", "", createCustomCollection, false));
 	});
 
 	mMenu.addRow(row);
 
 	bundleCustomCollections = std::make_shared<SwitchComponent>(mWindow);
 	bundleCustomCollections->setState(Settings::getInstance()->getBool("UseCustomCollectionsSystem"));
-	mMenu.addWithLabel("定制集合开关", bundleCustomCollections);
+	mMenu.addWithLabel(u8"定制集合开关", bundleCustomCollections);
 
 	sortAllSystemsSwitch = std::make_shared<SwitchComponent>(mWindow);
 	sortAllSystemsSwitch->setState(Settings::getInstance()->getBool("SortAllSystems"));
-	mMenu.addWithLabel("集合和系统排序", sortAllSystemsSwitch);
+	mMenu.addWithLabel(u8"集合和系统排序", sortAllSystemsSwitch);
 
 	if(CollectionSystemManager::get()->isEditing())
 	{
 		row.elements.clear();
-		row.addElement(std::make_shared<TextComponent>(mWindow, "完成编辑'" + Utils::String::toUpper(CollectionSystemManager::get()->getEditingCollection()) + "' 集合", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
+		row.addElement(std::make_shared<TextComponent>(mWindow, u8"完成编辑'" + Utils::String::toUpper(CollectionSystemManager::get()->getEditingCollection()) + u8"' 集合", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 		row.makeAcceptInputHandler(std::bind(&GuiCollectionSystemsOptions::exitEditMode, this));
 		mMenu.addRow(row);
 	}
 
-	mMenu.addButton("返回", "返回", std::bind(&GuiCollectionSystemsOptions::applySettings, this));
+	mMenu.addButton(u8"返回", u8"返回", std::bind(&GuiCollectionSystemsOptions::applySettings, this));
 
 	mMenu.setPosition((Renderer::getScreenWidth() - mMenu.getSize().x()) / 2, Renderer::getScreenHeight() * 0.15f);
 }
@@ -139,25 +139,25 @@ void GuiCollectionSystemsOptions::addSystemsToMenu()
 
 	std::map<std::string, CollectionSystemData> autoSystems = CollectionSystemManager::get()->getAutoCollectionSystems();
 
-	autoOptionList = std::make_shared< OptionListComponent<std::string> >(mWindow, "选择集合", true);
+	autoOptionList = std::make_shared< OptionListComponent<std::string> >(mWindow, u8"选择集合", true);
 
 	// add Auto Systems
 	for(std::map<std::string, CollectionSystemData>::const_iterator it = autoSystems.cbegin() ; it != autoSystems.cend() ; it++ )
 	{
 		autoOptionList->add(it->second.decl.longName, it->second.decl.name, it->second.isEnabled);
 	}
-	mMenu.addWithLabel("自动游戏集合", autoOptionList);
+	mMenu.addWithLabel(u8"自动游戏集合", autoOptionList);
 
 	std::map<std::string, CollectionSystemData> customSystems = CollectionSystemManager::get()->getCustomCollectionSystems();
 
-	customOptionList = std::make_shared< OptionListComponent<std::string> >(mWindow, "选择集合", true);
+	customOptionList = std::make_shared< OptionListComponent<std::string> >(mWindow, u8"选择集合", true);
 
 	// add Custom Systems
 	for(std::map<std::string, CollectionSystemData>::const_iterator it = customSystems.cbegin() ; it != customSystems.cend() ; it++ )
 	{
 		customOptionList->add(it->second.decl.longName, it->second.decl.name, it->second.isEnabled);
 	}
-	mMenu.addWithLabel("定制游戏集合", customOptionList);
+	mMenu.addWithLabel(u8"定制游戏集合", customOptionList);
 }
 
 void GuiCollectionSystemsOptions::applySettings()
@@ -209,6 +209,6 @@ bool GuiCollectionSystemsOptions::input(InputConfig* config, Input input)
 std::vector<HelpPrompt> GuiCollectionSystemsOptions::getHelpPrompts()
 {
 	std::vector<HelpPrompt> prompts = mMenu.getHelpPrompts();
-	prompts.push_back(HelpPrompt("b", "返回"));
+	prompts.push_back(HelpPrompt("b", u8"返回"));
 	return prompts;
 }

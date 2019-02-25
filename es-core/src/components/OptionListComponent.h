@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef ES_CORE_COMPONENTS_OPTION_LIST_COMPONENT_H
 #define ES_CORE_COMPONENTS_OPTION_LIST_COMPONENT_H
 
@@ -87,11 +87,11 @@ private:
 				mMenu.addRow(row, (!mParent->mMultiSelect && it->selected));
 			}
 
-			mMenu.addButton("返回", "返回", [this] { delete this; });
+			mMenu.addButton(u8"返回", u8"返回", [this] { delete this; });
 
 			if(mParent->mMultiSelect)
 			{
-				mMenu.addButton("全选", "全选", [this, checkboxes] {
+				mMenu.addButton(u8"全选", u8"全选", [this, checkboxes] {
 					for(unsigned int i = 0; i < mParent->mEntries.size(); i++)
 					{
 						mParent->mEntries.at(i).selected = true;
@@ -100,7 +100,7 @@ private:
 					mParent->onSelectedChanged();
 				});
 
-				mMenu.addButton("不选", "不选", [this, checkboxes] {
+				mMenu.addButton(u8"不选", u8"不选", [this, checkboxes] {
 					for(unsigned int i = 0; i < mParent->mEntries.size(); i++)
 					{
 						mParent->mEntries.at(i).selected = false;
@@ -128,7 +128,7 @@ private:
 		std::vector<HelpPrompt> getHelpPrompts() override
 		{
 			auto prompts = mMenu.getHelpPrompts();
-			prompts.push_back(HelpPrompt("b", "返回"));
+			prompts.push_back(HelpPrompt("b", u8"返回"));
 			return prompts;
 		}
 	};
@@ -293,7 +293,7 @@ private:
 		{
 			// display # selected
 			std::stringstream ss;
-			ss << getSelectedObjects().size() << " 个被选中";
+			ss << getSelectedObjects().size() << u8" 个被选中";
 			mText.setText(ss.str());
 			mText.setSize(0, mText.getSize().y());
 			setSize(mText.getSize().x() + mRightArrow.getSize().x() + 24, mText.getSize().y());
@@ -320,9 +320,9 @@ private:
 	{
 		std::vector<HelpPrompt> prompts;
 		if(!mMultiSelect)
-			prompts.push_back(HelpPrompt("left/right", "改变"));
+			prompts.push_back(HelpPrompt("left/right", u8"改变"));
 
-		prompts.push_back(HelpPrompt("a", "进入"));
+		prompts.push_back(HelpPrompt("a", u8"进入"));
 		return prompts;
 	}
 

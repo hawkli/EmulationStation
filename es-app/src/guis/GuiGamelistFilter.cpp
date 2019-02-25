@@ -1,10 +1,10 @@
-#include "guis/GuiGamelistFilter.h"
+﻿#include "guis/GuiGamelistFilter.h"
 
 #include "components/OptionListComponent.h"
 #include "views/UIModeController.h"
 #include "SystemData.h"
 
-GuiGamelistFilter::GuiGamelistFilter(Window* window, SystemData* system) : GuiComponent(window), mMenu(window, "筛选游戏列表"), mSystem(system)
+GuiGamelistFilter::GuiGamelistFilter(Window* window, SystemData* system) : GuiComponent(window), mMenu(window, u8"筛选游戏列表"), mSystem(system)
 {
 	initializeMenu();
 }
@@ -21,14 +21,14 @@ void GuiGamelistFilter::initializeMenu()
 
 	// show filtered menu
 	row.elements.clear();
-	row.addElement(std::make_shared<TextComponent>(mWindow, "重置全部筛选", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
+	row.addElement(std::make_shared<TextComponent>(mWindow, u8"重置全部筛选", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 	row.makeAcceptInputHandler(std::bind(&GuiGamelistFilter::resetAllFilters, this));
 	mMenu.addRow(row);
 	row.elements.clear();
 
 	addFiltersToMenu();
 
-	mMenu.addButton("返回", "返回", std::bind(&GuiGamelistFilter::applyFilters, this));
+	mMenu.addButton(u8"返回", u8"返回", std::bind(&GuiGamelistFilter::applyFilters, this));
 
 	mMenu.setPosition((Renderer::getScreenWidth() - mMenu.getSize().x()) / 2, Renderer::getScreenHeight() * 0.15f);
 }
@@ -112,6 +112,6 @@ bool GuiGamelistFilter::input(InputConfig* config, Input input)
 std::vector<HelpPrompt> GuiGamelistFilter::getHelpPrompts()
 {
 	std::vector<HelpPrompt> prompts = mMenu.getHelpPrompts();
-	prompts.push_back(HelpPrompt("b", "返回"));
+	prompts.push_back(HelpPrompt("b", u8"返回"));
 	return prompts;
 }

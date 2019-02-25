@@ -1,4 +1,4 @@
-#include "MetaData.h"
+﻿#include "MetaData.h"
 
 #include "utils/FileSystemUtil.h"
 #include "Log.h"
@@ -6,41 +6,41 @@
 
 MetaDataDecl gameDecls[] = {
 	// key,         type,                   default,            statistic,  name in GuiMetaDataEd,  prompt in GuiMetaDataEd
-	{"name",        MD_STRING,              "",                 false,      "名　　称",                "请输入游戏名称"},
-	{"sortname",    MD_STRING,              "",                 false,      "排序名称",                "请输入排序名称"},
-	{"desc",        MD_MULTILINE_STRING,    "",                 false,      "详细描述",                "请输入详细描述"},
-	{"image",       MD_PATH,                "",                 false,      "图　　片",                "请输入图片路径"},
-	{"video",       MD_PATH     ,           "",                 false,      "视　　频",                "请输入视频路径"},
-	{"marquee",     MD_PATH,                "",                 false,      "文字滚动",                "请输入文字路径"},
-	{"thumbnail",   MD_PATH,                "",                 false,      "小缩略图",                "请输入缩略图路径"},
-	{"rating",      MD_RATING,              "0.000000",         false,      "评　　分",                "请输入评分"},
-	{"releasedate", MD_DATE,                "not-a-date-time",  false,      "发行年份",                "请输入发行年份"},
-	{"developer",   MD_STRING,              "unknown",          false,      "研发厂商",                "请输入研发厂商名称"},
-	{"publisher",   MD_STRING,              "unknown",          false,      "发行厂商",                "请输入发行厂商名称"},
-	{"genre",       MD_STRING,              "unknown",          false,      "类　　别",                "请输入游戏类别"},
-	{"players",     MD_INT,                 "1",                false,      "玩家数量",                "请输入可支持的玩家数量"},
-	{"favorite",    MD_BOOL,                "false",            false,      "喜　　欢",                "请选择是否喜欢 关/开"},
-	{"hidden",      MD_BOOL,                "false",            false,      "隐　　藏",                "请选择是否隐藏 关/开" },
-	{"kidgame",     MD_BOOL,                "false",            false,      "儿童游戏",                "请选择是否为儿童游戏 关/开" },
-	{"playcount",   MD_INT,                 "0",                true,       "游戏次数",                "请输入已经游戏次数"},
-	{"lastplayed",  MD_TIME,                "0",                true,       "上次游戏",                "请输入最后一次游戏时间"}
+	{"name",        MD_STRING,              "",                 false,      u8"名　　称",                u8"请输入游戏名称."},
+	{"sortname",    MD_STRING,              "",                 false,      u8"排序名称",                u8"请输入排序名称."},
+	{"desc",        MD_MULTILINE_STRING,    "",                 false,      u8"详细描述",                u8"请输入详细描述."},
+	{"image",       MD_PATH,                "",                 false,      u8"图　　片",                u8"请输入图片路径."},
+	{"video",       MD_PATH     ,           "",                 false,      u8"视　　频",                u8"请输入视频路径."},
+	{"marquee",     MD_PATH,                "",                 false,      u8"文字滚动",                u8"请输入文字路径."},
+	{"thumbnail",   MD_PATH,                "",                 false,      u8"小缩略图",                u8"请输入缩略图路径."},
+	{"rating",      MD_RATING,              "0.000000",         false,      u8"评　　分",                u8"请输入评分."},
+	{"releasedate", MD_DATE,                "not-a-date-time",  false,      u8"发行年份",                u8"请输入发行年份."},
+	{"developer",   MD_STRING,              "unknown",          false,      u8"研发厂商",                u8"请输入研发厂商名称."},
+	{"publisher",   MD_STRING,              "unknown",          false,      u8"发行厂商",                u8"请输入发行厂商名称."},
+	{"genre",       MD_STRING,              "unknown",          false,      u8"类　　别",                u8"请输入游戏类别."},
+	{"players",     MD_INT,                 "1",                false,      u8"玩家数量",                u8"请输入可支持的玩家数量."},
+	{"favorite",    MD_BOOL,                "false",            false,      u8"喜　　欢",                u8"请选择是否喜欢 关/开."},
+	{"hidden",      MD_BOOL,                "false",            false,      u8"隐　　藏",                u8"请选择是否隐藏 关/开." },
+	{"kidgame",     MD_BOOL,                "false",            false,      u8"儿童游戏",                u8"请选择是否为儿童游戏 关/开." },
+	{"playcount",   MD_INT,                 "0",                true,       u8"游戏次数",                u8"请输入已经游戏次数."},
+	{"lastplayed",  MD_TIME,                "0",                true,       u8"上次游戏",                u8"请输入最后一次游戏时间."}
 };
 const std::vector<MetaDataDecl> gameMDD(gameDecls, gameDecls + sizeof(gameDecls) / sizeof(gameDecls[0]));
 
 MetaDataDecl folderDecls[] = {
-	{"name",        MD_STRING,              "",                 false,      "名　　称",                "请输入游戏名称"},
-	{"sortname",    MD_STRING,              "",                 false,      "排序名称",                "请输入排序名称"},
-	{"desc",        MD_MULTILINE_STRING,    "",                 false,      "详细描述",                "请输入详细描述"},
-	{"image",       MD_PATH,                "",                 false,      "图　　片",                "请输入图片路径"},
-	{"thumbnail",   MD_PATH,                "",                 false,      "小缩略图",                "请输入缩略图路径"},
-	{"video",       MD_PATH     ,           "",                 false,      "视　　频",                "请输入视频路径"},
-	{"marquee",     MD_PATH,                "",                 false,      "文字滚动",                "请输入文字路径"},
-	{"rating",      MD_RATING,              "0.000000",         false,      "评　　分",                "请输入评分"},
-	{"releasedate", MD_DATE,                "not-a-date-time",  false,      "发行年份",                "请输入发行年份"},
-	{"developer",   MD_STRING,              "unknown",          false,      "研发厂商",                "请输入研发厂商名称"},
-	{"publisher",   MD_STRING,              "unknown",          false,      "发行厂商",                "请输入发行厂商名称"},
-	{"genre",       MD_STRING,              "unknown",          false,      "类　　别",                "请输入游戏类别"},
-	{"players",     MD_INT,                 "1",                false,      "玩家数量",                "请输入可支持的玩家数量"}
+	{"name",        MD_STRING,              "",                 false,      u8"名　　称",                u8"请输入游戏名称."},
+	{"sortname",    MD_STRING,              "",                 false,      u8"排序名称",                u8"请输入排序名称."},
+	{"desc",        MD_MULTILINE_STRING,    "",                 false,      u8"详细描述",                u8"请输入详细描述."},
+	{"image",       MD_PATH,                "",                 false,      u8"图　　片",                u8"请输入图片路径."},
+	{"thumbnail",   MD_PATH,                "",                 false,      u8"小缩略图",                u8"请输入缩略图路径."},
+	{"video",       MD_PATH     ,           "",                 false,      u8"视　　频",                u8"请输入视频路径."},
+	{"marquee",     MD_PATH,                "",                 false,      u8"文字滚动",                u8"请输入文字路径."},
+	{"rating",      MD_RATING,              "0.000000",         false,      u8"评　　分",                u8"请输入评分."},
+	{"releasedate", MD_DATE,                "not-a-date-time",  false,      u8"发行年份",                u8"请输入发行年份."},
+	{"developer",   MD_STRING,              "unknown",          false,      u8"研发厂商",                u8"请输入研发厂商名称."},
+	{"publisher",   MD_STRING,              "unknown",          false,      u8"发行厂商",                u8"请输入发行厂商名称."},
+	{"genre",       MD_STRING,              "unknown",          false,      u8"类　　别",                u8"请输入游戏类别."},
+	{"players",     MD_INT,                 "1",                false,      u8"玩家数量",                u8"请输入可支持的玩家数量."}
 };
 const std::vector<MetaDataDecl> folderMDD(folderDecls, folderDecls + sizeof(folderDecls) / sizeof(folderDecls[0]));
 

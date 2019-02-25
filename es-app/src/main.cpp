@@ -1,4 +1,4 @@
-//EmulationStation, a graphical front-end for ROM browsing. Created by Alec "Aloshi" Lofquist.
+﻿//EmulationStation, a graphical front-end for ROM browsing. Created by Alec "Aloshi" Lofquist.
 //http://www.aloshi.com
 
 #include "guis/GuiDetectDevice.h"
@@ -201,19 +201,19 @@ bool loadSystemConfigFile(const char** errorString)
 	if(!SystemData::loadConfig())
 	{
 		LOG(LogError) << "Error while parsing systems configuration file!";
-		*errorString = "系统配置文件未发现或错误！\n"
-			"你需要手动修正配置文件.\n"
-			"访问EMULATIONSTATION.ORG获得更多信息.";
+		*errorString = u8"系统配置文件未发现或错误!\n"
+			u8"你需要手动修正配置文件.\n"
+			u8"访问EMULATIONSTATION.ORG获得更多信息.";
 		return false;
 	}
 
 	if(SystemData::sSystemVector.size() == 0)
 	{
 		LOG(LogError) << "No systems found! Does at least one system have a game present? (check that extensions match!)\n(Also, make sure you've updated your es_systems.cfg for XML!)";
-		*errorString = "未发现任何游戏！\n"
-			"检查你的路径和系统配置文件，并保证你的\n"
-			"目录中至少有一个可以正常运行的游戏！\n"
-			"请使用包含set HOME=%~dp0的bat来运行程序！";
+		*errorString = u8"未发现任何游戏! \n"
+			u8"检查你的路径和系统配置文件,并保证你的\n"
+			u8"目录中至少有一个可以正常运行的游戏!\n"
+			u8"请使用包含set HOME=%~dp0的bat来运行程序! ";
 		return false;
 	}
 
@@ -309,9 +309,9 @@ int main(int argc, char* argv[])
 		LOG(LogInfo) << " ARB_texture_non_power_of_two: " << (glExts.find("ARB_texture_non_power_of_two") != std::string::npos ? "ok" : "MISSING");
 		if(splashScreen)
 		{
-			std::string progressText = "载入中...";
+			std::string progressText = u8"载入中...";
 			if (splashScreenProgress)
-				progressText = "读取系统配置...";
+				progressText = u8"读取系统配置...";
 			window.renderLoadingScreen(progressText);
 		}
 	}
@@ -331,7 +331,7 @@ int main(int argc, char* argv[])
 		// we can't handle es_systems.cfg file problems inside ES itself, so display the error message then quit
 		window.pushGui(new GuiMsgBox(&window,
 			errorMsg,
-			"退出", [] {
+			u8"退出", [] {
 				SDL_Event* quit = new SDL_Event();
 				quit->type = SDL_QUIT;
 				SDL_PushEvent(quit);
@@ -352,7 +352,7 @@ int main(int argc, char* argv[])
 	ViewController::get()->preload();
 
 	if(splashScreen && splashScreenProgress)
-		window.renderLoadingScreen("完成.");
+		window.renderLoadingScreen(u8"完成.");
 
 	//choose which GUI to open depending on if an input configuration already exists
 	if(errorMsg == NULL)

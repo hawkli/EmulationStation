@@ -1,4 +1,4 @@
-#include "views/SystemView.h"
+﻿#include "views/SystemView.h"
 
 #include "animations/LambdaAnimation.h"
 #include "guis/GuiMsgBox.h"
@@ -16,7 +16,7 @@ const int logoBuffersRight[] = { 1, 2, 5 };
 
 SystemView::SystemView(Window* window) : IList<SystemViewData, SystemData*>(window, LIST_SCROLL_STYLE_SLOW, LIST_ALWAYS_LOOP),
 										 mViewNeedsReload(true),
-										 mSystemInfo(window, "系统信息", Font::get(FONT_SIZE_SMALL), 0x33333300, ALIGN_CENTER)
+										 mSystemInfo(window, u8" 系统信息", Font::get(FONT_SIZE_SMALL), 0x33333300, ALIGN_CENTER)
 {
 	mCamOffset = 0;
 	mExtrasCamOffset = 0;
@@ -122,7 +122,7 @@ void SystemView::populate()
 		if (!UIModeController::getInstance()->isUIModeFull())
 		{
 			Settings::getInstance()->setString("UIMode", "Full");
-			mWindow->pushGui(new GuiMsgBox(mWindow, "所选择的界面模式无法显示\n返回FULL界面模式", "好", nullptr));
+			mWindow->pushGui(new GuiMsgBox(mWindow, u8"所选择的界面模式无法显示.\n返回FULL界面模式.", u8"好", nullptr));
 		}
 	}
 }
@@ -257,9 +257,9 @@ void SystemView::onCursorChanged(const CursorState& /*state*/)
 		std::stringstream ss;
 
 		if (!getSelected()->isGameSystem())
-			ss << "配置";
+			ss << u8"配置 ";
 		else
-			ss << gameCount << "个可玩游戏";
+			ss << gameCount << u8"个可玩游戏 ";
 
 		mSystemInfo.setText(ss.str());
 	}, false, 1);
@@ -376,14 +376,14 @@ std::vector<HelpPrompt> SystemView::getHelpPrompts()
 {
 	std::vector<HelpPrompt> prompts;
 	if (mCarousel.type == VERTICAL || mCarousel.type == VERTICAL_WHEEL)
-		prompts.push_back(HelpPrompt("up/down", "选择"));
+		prompts.push_back(HelpPrompt("up/down", u8"选择"));
 	else
-		prompts.push_back(HelpPrompt("left/right", "主机切换"));
-	prompts.push_back(HelpPrompt("a", "启动"));
-	prompts.push_back(HelpPrompt("x", "随机"));
+		prompts.push_back(HelpPrompt("left/right", u8"主机切换"));
+	prompts.push_back(HelpPrompt("a", u8"启动"));
+	prompts.push_back(HelpPrompt("x", u8"随机"));
 
 	if (!UIModeController::getInstance()->isUIModeKid() && Settings::getInstance()->getBool("ScreenSaverControls"))
-		prompts.push_back(HelpPrompt("select", "显示屏保"));
+		prompts.push_back(HelpPrompt("select", u8"显示屏保"));
 
 	return prompts;
 }

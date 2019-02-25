@@ -1,4 +1,4 @@
-#include "CollectionSystemManager.h"
+﻿#include "CollectionSystemManager.h"
 
 #include "guis/GuiInfoPopup.h"
 #include "utils/FileSystemUtil.h"
@@ -26,10 +26,10 @@ CollectionSystemManager::CollectionSystemManager(Window* window) : mWindow(windo
 {
 	CollectionSystemDecl systemDecls[] = {
 		//type                  name            long name            //default sort              // theme folder            // isCustom
-		{ AUTO_ALL_GAMES,       "全部",          "全部游戏",         "文件名,升序",             "auto-allgames",           false },
-		{ AUTO_LAST_PLAYED,     "上次",          "上次游戏",         "上次游戏,降序",           "auto-lastplayed",         false },
-		{ AUTO_FAVORITES,       "喜欢",          "喜欢",             "文件名,升序",             "auto-favorites",          false },
-		{ CUSTOM_COLLECTION,    myCollectionsName,  "集合",          "文件名,升序",             "custom-collections",      true }
+		{ AUTO_ALL_GAMES,       u8"全部",          u8"全部游戏",         u8"文件名,升序",             "auto-allgames",           false },
+		{ AUTO_LAST_PLAYED,     u8"上次",          u8"上次游戏",         u8"上次游戏,降序",           "auto-lastplayed",         false },
+		{ AUTO_FAVORITES,       u8"喜欢",          u8"喜欢",             u8"文件名,升序",             "auto-favorites",          false },
+		{ CUSTOM_COLLECTION,    myCollectionsName,  u8"集合",          u8"文件名,升序",             "custom-collections",      true }
 	};
 
 	// create a map
@@ -55,7 +55,7 @@ CollectionSystemManager::CollectionSystemManager(Window* window) : mWindow(windo
 		Utils::FileSystem::createDirectory(path);
 
 	mIsEditingCustom = false;
-	mEditingCollection = "加入收藏";
+	mEditingCollection = u8"我的喜欢";
 	mEditingCollectionSystemData = NULL;
 	mCustomCollectionsBundle = NULL;
 }
@@ -438,16 +438,16 @@ void CollectionSystemManager::setEditMode(std::string collectionName)
 	// if it's bundled, this needs to be the bundle system
 	mEditingCollectionSystemData = sysData;
 
-	GuiInfoPopup* s = new GuiInfoPopup(mWindow, "编辑 '" + Utils::String::toUpper(collectionName) + "' 集合. 使用Y键增加/删除游戏.", 10000);
+	GuiInfoPopup* s = new GuiInfoPopup(mWindow, u8"编辑'" + Utils::String::toUpper(collectionName) + u8"' 集合. 使用Y键增加/删除游戏.", 10000);
 	mWindow->setInfoPopup(s);
 }
 
 void CollectionSystemManager::exitEditMode()
 {
-	GuiInfoPopup* s = new GuiInfoPopup(mWindow, "完成编辑 '" + mEditingCollection + "' 集合.", 4000);
+	GuiInfoPopup* s = new GuiInfoPopup(mWindow, u8"完成编辑'" + mEditingCollection + u8"' 集合.", 4000);
 	mWindow->setInfoPopup(s);
 	mIsEditingCustom = false;
-	mEditingCollection = "加入收藏";
+	mEditingCollection = u8"我的喜欢";
 }
 
 // adds or removes a game from a specific collection
@@ -525,11 +525,11 @@ bool CollectionSystemManager::toggleGameInCollection(FileData* file)
 		}
 		if (adding)
 		{
-			s = new GuiInfoPopup(mWindow, "增加 '" + Utils::String::removeParenthesis(name) + "' 到 '" + Utils::String::toUpper(sysName) + "'", 4000);
+			s = new GuiInfoPopup(mWindow, u8"增加'" + Utils::String::removeParenthesis(name) + u8"' 到 '" + Utils::String::toUpper(sysName) + "'", 4000);
 		}
 		else
 		{
-			s = new GuiInfoPopup(mWindow, "删除 '" + Utils::String::removeParenthesis(name) + "' 从 '" + Utils::String::toUpper(sysName) + "'", 4000);
+			s = new GuiInfoPopup(mWindow, u8"删除'" + Utils::String::removeParenthesis(name) + u8"' 从 '" + Utils::String::toUpper(sysName) + "'", 4000);
 		}
 		mWindow->setInfoPopup(s);
 		return true;
@@ -575,7 +575,7 @@ void CollectionSystemManager::updateCollectionFolderMetadata(SystemData* sys)
 {
 	FileData* rootFolder = sys->getRootFolder();
 
-	std::string desc = "集合为空.";
+	std::string desc = u8"集合为空.";
 	std::string rating = "0";
 	std::string players = "1";
 	std::string releasedate = "N/A";
