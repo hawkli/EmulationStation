@@ -470,6 +470,20 @@ void GuiMenu::openQuitMenu()
 	ComponentListRow row;
 	if (UIModeController::getInstance()->isUIModeFull())
 	{
+
+		row.makeAcceptInputHandler([window] {
+			window->pushGui(new GuiMsgBox(window, u8"确认要运行自定义程序吗?", u8"是",
+				[] {
+				#ifdef WIN32
+				runMyProgram();
+				LOG(LogWarning) << "Run custorm Program!";
+				#endif
+			}, u8"否", nullptr));
+		});
+		row.addElement(std::make_shared<TextComponent>(window, u8"运行自定义程序", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
+		s->addRow(row);
+
+		row.elements.clear();
 		row.makeAcceptInputHandler([window] {
 			window->pushGui(new GuiMsgBox(window, u8"确认要重启吗?", u8"是",
 				[] {
@@ -479,8 +493,6 @@ void GuiMenu::openQuitMenu()
 		});
 		row.addElement(std::make_shared<TextComponent>(window, u8"重启EMULATIONSTATION", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 		s->addRow(row);
-
-
 
 		if(Settings::getInstance()->getBool("ShowExit"))
 		{
@@ -497,10 +509,14 @@ void GuiMenu::openQuitMenu()
 			s->addRow(row);
 		}
 	}
+
 	row.elements.clear();
 	row.makeAcceptInputHandler([window] {
 		window->pushGui(new GuiMsgBox(window, u8"确认要重启操作系统吗?", u8"是",
 			[] {
+			#ifdef WIN32
+			runRestartCommand();
+			#endif
 			if (quitES("/tmp/es-sysrestart") != 0)
 				LOG(LogWarning) << "Restart terminated with non-zero result!";
 		}, u8"否", nullptr));
@@ -512,6 +528,9 @@ void GuiMenu::openQuitMenu()
 	row.makeAcceptInputHandler([window] {
 		window->pushGui(new GuiMsgBox(window, u8"确认要关机吗?", u8"是",
 			[] {
+			#ifdef WIN32
+			runShutdownCommand();
+			#endif
 			if (quitES("/tmp/es-shutdown") != 0)
 				LOG(LogWarning) << "Shutdown terminated with non-zero result!";
 		}, u8"否", nullptr));

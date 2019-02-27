@@ -17,6 +17,16 @@ int runShutdownCommand()
 #endif
 }
 
+int runMyProgram()
+{
+#ifdef WIN32 // windows
+	return system("myprogram.bat");
+#else // osx / linux
+	return system("myprogram.sh");
+#endif
+	
+}
+
 int runRestartCommand()
 {
 #ifdef WIN32 // windows

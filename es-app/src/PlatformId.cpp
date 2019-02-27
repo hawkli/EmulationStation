@@ -72,6 +72,7 @@ namespace PlatformIds
 		"vectrex",
 		"trs-80",
 		"coco",
+		"mame",  //add MAME by HAWK.Li
 
 		"ignore", // do not allow scraping for this system
 		"invalid"
