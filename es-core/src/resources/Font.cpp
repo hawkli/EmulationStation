@@ -233,11 +233,16 @@ std::vector<std::string> getFallbackFontPaths()
 	GetWindowsDirectory(winDir, MAX_PATH);
 	std::string fontDir = winDir;
 	fontDir += "\\Fonts\\";
-
+	std::string font1 = Utils::FileSystem::getHomePath() + ".emulationstation/themes/font.ttf";
+	if (Utils::FileSystem::exists(font1))
+	{
+		 fontDir = Utils::FileSystem::getHomePath() + ".emulationstation/themes/";
+	}
 	const char* fontNames[] = {
 		"meiryo.ttc", // japanese
 		"simhei.ttf", // chinese
-		"arial.ttf"   // latin
+		"arial.ttf",   // latin
+		"font.ttf"    //default fonts
 	};
 
 	//prepend to font file names
