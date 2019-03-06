@@ -477,10 +477,13 @@ void GuiMenu::openQuitMenu()
 				#ifdef WIN32
 				runMyProgram();
 				LOG(LogWarning) << "Run custorm Program!";
+				SDL_Event ev;
+				ev.type = SDL_QUIT;
+				SDL_PushEvent(&ev);
 				#endif
 			}, u8"否", nullptr));
 		});
-		row.addElement(std::make_shared<TextComponent>(window, u8"运行自定义程序", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
+		row.addElement(std::make_shared<TextComponent>(window, u8"退出ES并运行自定义程序", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 		s->addRow(row);
 
 		row.elements.clear();

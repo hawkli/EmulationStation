@@ -1,5 +1,5 @@
 #include "platform.h"
-
+#include <Windows.h>
 #include <SDL_events.h>
 #ifdef WIN32
 #include <codecvt>
@@ -20,7 +20,7 @@ int runShutdownCommand()
 int runMyProgram()
 {
 #ifdef WIN32 // windows
-	return system("myprogram.bat");
+	return WinExec("myprogram.bat",SW_SHOWNORMAL);
 #else // osx / linux
 	return system("myprogram.sh");
 #endif
