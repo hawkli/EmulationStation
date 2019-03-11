@@ -108,6 +108,9 @@ bool parseArgs(int argc, char* argv[])
 			Settings::getInstance()->setBool("Debug", true);
 			Settings::getInstance()->setBool("HideConsole", false);
 			Log::setReportingLevel(LogDebug);
+		}else if (strcmp(argv[i], "--fullscreen-borderless") == 0)
+		{
+			Settings::getInstance()->setBool("FullscreenBorderless", true);
 		}else if(strcmp(argv[i], "--windowed") == 0)
 		{
 			Settings::getInstance()->setBool("Windowed", true);
@@ -160,6 +163,7 @@ bool parseArgs(int argc, char* argv[])
 				u8"--no-splash			不显示启动页\n"
 				u8"--debug				Debug模式\n"
 				u8"--scrape			使用命令行窗口界面进行抓取\n"
+				u8"----fullscreen-borderless	全屏无框模式\n"
 				u8"--windowed			窗口化,一般同时使用--resolution参数\n"
 				u8"--vsync [1/on or 0/off]		开关vsync(默认为开)\n"
 				u8"--max-vram [size]		可用于交换的最多VRAM内存数. 0代表无限制\n"
