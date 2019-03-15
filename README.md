@@ -1,16 +1,18 @@
 EmulationStation
 ================
 
-���ĺ����汾��hawkli@yahoo.com  2019.2.27.
-�����ĺ��������PCƽ̨��δ��linux/RPi�汾�����������������Ҫ�����п�����֧�汾��
-��δ�ṩBIG5�汾�����ڿ��ܻῼ�ǡ�
-���˽��᲻���ڸ��£������°汾����֪ͨ��һ�£���һ����ʵʱ��ע�°汾���֡�
+中文汉化版本：hawkli@yahoo.com  2019.2.27.
+本中文汉化仅针对PC平台，未对linux/RPi版本做完整汉化，如果需要可自行开启分支版本。
+暂未提供BIG5版本，后期可能会考虑。
+本人将会不定期更新，如有新版本可以通知我一下，不一定会实时关注新版本出现。
 
 ================
 
-���ڿ����ߣ�
-��������vs2015/vs2017�±���ͨ����������������в鿴appveyor.yml���CI��
-���������ı��Ĵ����ļ���Ҫ��utf-8 BOM���棨code:65001)�������롣
+对于开发者：
+本代码在vs2015/vs2017下编译通过，有问题可以自行查看appveyor.yml完成CI。
+存在中文文本的代码文件需要以utf-8 BOM保存（code:65001)否则乱码。
+
+[![Build status](https://ci.appveyor.com/api/projects/status/lj8yvcat9bcn42nj/branch/CN-Version?svg=true)](https://ci.appveyor.com/project/hawkli/emulationstation/branch/CN-Version)
 
 ================
 
