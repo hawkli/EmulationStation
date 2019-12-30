@@ -1,0 +1,148 @@
+# version format
+version: '{build}'
+
+# Maximum number of concurrent jobs for the project
+max_jobs: 1
+
+# Build worker image (VM template)
+image: Visual Studio 2015
+
+# clone directory
+clone_folder: c:\src\EmulationStation
+
+# fetch repository as zip archive
+#shallow_clone: true
+
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+    - /^(?i:CN-Version)$/  
+    - /CN-Version.*/  
+
+environment:
+  _LINK_: /FORCE:MULTIPLE
+  auth_token:
+    secure: nis3umdDg8zScKgsVspfLveJ8i+yP9coQH99Wt03jlhhxv97ouyPkx9dW8QqpiG/
+  matrix:
+#    - prepare_mode: YES
+    - prepare_mode: NO
+      name: win32
+      platform: x86
+
+# build cache to preserve files/folders between builds
+#cache:
+#  - c:\src\downloads
+
+#init:
+  #- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+install:
+  # Install ciuploadtool
+  - md c:\dev\ciuploadtool
+  - cd c:\dev\ciuploadtool
+  - curl -fsSL https://github.com/d1vanov/ciuploadtool/releases/download/continuous-master/ciuploadtool_windows_x86.zip -o ciuploadtool_windows_x86.zip
+  - 7z x ciuploadtool_windows_x86.zip
+  # Install build dependencies
+  - mkdir c:\src\downloads
+  - mkdir c:\src\lib
+  - cd c:\src\downloads
+  #- ps: Start-FileDownload 'https://www.dropbox.com/s/0ab2zf0oe7i16i7/emulationstation-dependencies.zip?dl=1' -FileName 'emulationstation-dependencies.zip'
+  #- 7z x emulationstation-dependencies.zip -oC:\src\lib > NUL
+  # Install SDL2
+  - ps: Start-FileDownload 'https://www.libsdl.org/release/SDL2-2.0.5.zip' -FileName 'SDL2-2.0.5.zip'
+  - 7z x SDL2-2.0.5.zip -oc:\src\lib > NUL
+  # Install FreeImage
+  - ps: Start-FileDownload 'http://downloads.sourceforge.net/freeimage/FreeImage3170.zip' -FileName 'FreeImage3170.zip'
+  - 7z x FreeImage3170.zip -oc:\src\lib > NUL
+  - ps: (Get-Content C:\src\lib\FreeImage\Source\LibTIFF4\tif_config.h).replace('#define snprintf _snprintf', '') | Set-Content C:\src\lib\FreeImage\Source\LibTIFF4\tif_config.h
+  # Install FreeType
+  - ps: Start-FileDownload 'http://download.savannah.gnu.org/releases/freetype/freetype-2.7.tar.gz' -FileName 'freetype-2.7.tar.gz'
+  - 7z x freetype-2.7.tar.gz > NUL
+  - 7z x freetype-2.7.tar -oc:\src\lib > NUL
+  # Install curl
+  #- ps: Start-FileDownload 'https://curl.haxx.se/download/curl-7.50.3.zip' -FileName 'curl-7.50.3.zip'
+  - curl -fsS -o curl-7.50.3.zip https://curl.haxx.se/download/curl-7.50.3.zip
+  - 7z x curl-7.50.3.zip -oc:\src\lib > NUL
+  # Install rapidjson
+  - ps: Start-FileDownload 'https://github.com/Tencent/rapidjson/archive/v1.1.0.zip' -FileName 'rapidjson-1.1.0.zip'
+  - 7z x rapidjson-1.1.0.zip -oc:\src\lib > NUL
+  # Install vlc
+  - ps: Start-FileDownload 'https://github.com/RSATom/libvlc-sdk/archive/64ca3daa475a6539073f7544c740725b818642b2.zip' -FileName 'vlc-2.2.2.zip'
+  - 7z x vlc-2.2.2.zip -oc:\src\lib\ > NUL
+  - ps: Start-FileDownload 'http://download.videolan.org/pub/videolan/vlc/2.2.2/win32/vlc-2.2.2-win32.zip' -FileName 'vlc-2.2.2-win32.zip'
+  - 7z x vlc-2.2.2-win32.zip -oc:\src\downloads
+  # Fix directories
+  - cd c:\src\lib
+  - rename libvlc-sdk-64ca3daa475a6539073f7544c740725b818642b2 libvlc-2.2.2
+  
+build_script:
+  # prep for continuous upload
+  - if %APPVEYOR_REPO_BRANCH%==master if %prepare_mode%==YES c:\dev\ciuploadtool\ciuploadtool.exe -suffix="%APPVEYOR_REPO_BRANCH%" -preponly
+  - if %APPVEYOR_REPO_BRANCH%==stable if %prepare_mode%==YES c:\dev\ciuploadtool\ciuploadtool.exe -suffix="%APPVEYOR_REPO_BRANCH%" -preponly
+  - ps: if ($env:prepare_mode -eq "YES") { throw "Failing in order to stop the current build matrix job early" }
+  
+  - cd c:\src\lib\freetype-2.7\builds\windows\vc2010
+  - '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.com"  freetype.sln /upgrade'
+  - msbuild freetype.sln /p:Configuration=Release /p:Platform="Win32"
+    
+  - cd c:\src\lib\FreeImage
+  - '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.com"  FreeImage.2013.sln /upgrade'
+  - msbuild FreeImage.2013.sln /p:Configuration=Release /p:Platform="Win32"
+  
+  - cd c:\src\lib\curl-7.50.3\winbuild
+  # Run this to enable nmake
+  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x86'
+  - nmake /f Makefile.vc mode=dll VC=14 DEBUG=yes
+  - nmake /f Makefile.vc mode=dll VC=14 DEBUG=no
+  
+  - cd c:\src\lib\SDL2-2.0.5
+  - mkdir build
+  - cd build
+  - cmake -G "Visual Studio 14 2015" ..
+  - cd c:\src\lib\SDL2-2.0.5\build
+  - '"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild" SDL2.sln /p:Configuration=Release /p:Platform="Win32"'
+  
+  - cd c:\src\EmulationStation
+  - git submodule update --init --recursive
+  - mkdir build
+  - cd build
+  - set ES_LIB_DIR=c:\src\lib
+  - cmake -g "Visual Studio 14 2015 x86" .. -DFREETYPE_INCLUDE_DIRS=%ES_LIB_DIR%\freetype-2.7\include -DFREETYPE_LIBRARY=%ES_LIB_DIR%\freetype-2.7\objs\vc2010\Win32\freetype27.lib -DFreeImage_INCLUDE_DIR=%ES_LIB_DIR%\FreeImage\Source -DFreeImage_LIBRARY=%ES_LIB_DIR%\FreeImage\Dist\x32\FreeImage.lib -DSDL2_INCLUDE_DIR=%ES_LIB_DIR%\SDL2-2.0.5\include -DSDL2_LIBRARY=%ES_LIB_DIR%\SDL2-2.0.5\build\Release\SDL2.lib;%ES_LIB_DIR%\SDL2-2.0.5\build\Release\SDL2main.lib;Imm32.lib;version.lib -DCURL_INCLUDE_DIR=%ES_LIB_DIR%\curl-7.50.3\include -DCURL_LIBRARY=%ES_LIB_DIR%\curl-7.50.3\builds\libcurl-vc14-x86-release-dll-ipv6-sspi-winssl\lib\libcurl.lib -DRAPIDJSON_INCLUDE_DIRS=%ES_LIB_DIR%\rapidjson-1.1.0\include -DVLC_INCLUDE_DIR=%ES_LIB_DIR%\libvlc-2.2.2\include -DVLC_LIBRARIES=%ES_LIB_DIR%\libvlc-2.2.2\lib\msvc\libvlc.lib;%ES_LIB_DIR%\libvlc-2.2.2\lib\msvc\libvlccore.lib -DVLC_VERSION=1.0.0     
+
+  - cd c:\src\EmulationStation\build
+  - '"C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild" emulationstation-all.sln /p:Configuration=Release /p:Platform="Win32"'
+
+  - cd c:\src\EmulationStation
+  - 7z a EmulationStation-Win32.zip C:\src\EmulationStation\Release\*.exe C:\src\EmulationStation\Release\*.exp C:\src\EmulationStation\Release\*.lib
+  - 7z a EmulationStation-Win32.zip C:\src\downloads\vlc-2.2.2\libvlc.dll C:\src\downloads\vlc-2.2.2\libvlccore.dll C:\src\downloads\vlc-2.2.2\plugins
+  - 7z a EmulationStation-Win32.zip C:\src\lib\SDL2-2.0.5\build\Release\SDL2.dll
+  - 7z a EmulationStation-Win32.zip C:\src\lib\curl-7.50.3\builds\libcurl-vc14-x86-release-dll-ipv6-sspi-winssl\bin\libcurl.dll
+  - 7z a EmulationStation-Win32.zip C:\src\lib\FreeImage\Win32\Release\FreeImage.dll
+  - 7z a EmulationStation-Win32.zip C:\src\EmulationStation\resources
+
+  - 7z a EmulationStation-Win32-no-deps.zip C:\src\EmulationStation\Release\*.exe C:\src\EmulationStation\Release\*.exp C:\src\EmulationStation\Release\*.lib
+  - 7z a EmulationStation-Win32-no-deps.zip C:\src\EmulationStation\resources
+  - ps: |
+      $version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo("C:\src\EmulationStation\Release\emulationstation.exe").FileVersion -replace ',','.';
+      $timestamp = Get-Date -Format "yyyymmddHHmm"
+      Update-AppveyorBuild -Version "$version-$timestamp"
+on_finish:
+  - if %APPVEYOR_REPO_BRANCH%==master c:\dev\ciuploadtool\ciuploadtool.exe -suffix="%APPVEYOR_REPO_BRANCH%" C:\src\EmulationStation\*.zip
+  - if %APPVEYOR_REPO_BRANCH%==stable c:\dev\ciuploadtool\ciuploadtool.exe -suffix="%APPVEYOR_REPO_BRANCH%" C:\src\EmulationStation\*.zip
+  #- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+#platform:
+#  - Any CPU
+
+#configuration:
+#  - Debug
+#  - Release
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - prepare_mode: YES
+  
+artifacts:
+  - path: EmulationStation-Win32*.zip
+    name: EmulationStation
